@@ -90,6 +90,7 @@ protected:
   void solveOne(z3::expr);
 
   void checkFeasible();
+  void saveConstraintsToFile(z3::check_result result);
 };
 
 extern Solver* g_solver;

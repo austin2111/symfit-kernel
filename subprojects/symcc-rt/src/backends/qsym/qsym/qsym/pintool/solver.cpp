@@ -1,6 +1,9 @@
 #include <set>
 #include <byteswap.h>
 #include <thread>
+#include <fstream>
+#include <sys/stat.h>
+#include <iomanip>
 #include "solver.h"
 
 namespace qsym {
@@ -125,17 +128,57 @@ void Solver::add(z3::expr expr) {
     solver_.add(expr.simplify());
 }
 
+void Solver::saveConstraintsToFile(z3::check_result result) {
+  // Create constraint directory if it doesn't exist
+  std::string constraint_dir = out_dir_ + "/constraint";
+  struct stat st = {0};
+  if (stat(constraint_dir.c_str(), &st) == -1) {
+    mkdir(constraint_dir.c_str(), 0700);
+  }
+  
+  // Save constraints to file
+  std::string constraint_file = constraint_dir + "/constraint_set";
+  std::ofstream ofs(constraint_file, std::ios::app | std::ios::binary); 
+  if (ofs.is_open()) {
+    // First save the solving result
+    ofs << "=== SOLVING RESULT ===" << std::endl;
+    if (result == z3::sat) {
+      ofs << "SAT" << std::endl;
+      ofs << "Answer: ";
+      try {
+        std::vector<UINT8> values = getConcreteValues();
+        ofs.write(reinterpret_cast<const char*>(values.data()), values.size());
+      } catch (...) {
+        ofs << "Could not extract model";
+      }
+      ofs << std::endl;
+    } else if (result == z3::unsat) {
+      ofs << "UNSAT" << std::endl;
+    } else {
+      ofs << "UNKNOWN" << std::endl;
+    }
+    ofs << std::endl;
+    
+    // Then save the constraints
+    ofs << "=== CONSTRAINTS ===" << std::endl;
+    ofs << solver_.to_smt2() << std::endl;
+    ofs << std::endl << std::endl;
+    ofs.close();
+  }
+}
+
 z3::check_result Solver::check() {
   uint64_t before = getTimeStamp();
-  z3::check_result res;
+  z3::check_result res = z3::unknown;  // Initialize res
   LOG_STAT(
       "SMT: { \"solving_time\": " + decstr(solving_time_) + ", "
       + "\"total_time\": " + decstr(before - start_time_) + " }\n");
-  // LOG_DEBUG("Constraints: " + solver_.to_smt2() + "\n");
+      
+  //LOG_DEBUG("Constraints: " + solver_.to_smt2() + "\n");
   try {
     res = solver_.check();
   }
-  catch(z3::exception e) {
+  catch(const z3::exception& e) {  // Catch by reference
     // https://github.com/Z3Prover/z3/issues/419
     // timeout can cause exception
     res = z3::unknown;
@@ -318,6 +361,8 @@ std::vector<UINT8> Solver::getConcreteValues() {
 
 void Solver::saveValues(const std::string& postfix) {
   std::vector<UINT8> values = getConcreteValues();
+
+  saveConstraintsToFile(z3::sat);
 
   // If no output directory is specified, then just print it out
   if (out_dir_.empty()) {
