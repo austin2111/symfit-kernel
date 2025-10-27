@@ -1,0 +1,10 @@
+/workdir/run/subprojects/symcc-rt/__CMake_build/CMakeFiles/edit_cache.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/CMakeFiles/rebuild_cache.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/intrinsics_gen.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/omp_gen.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/acc_gen.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtShared.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtStatic.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/edit_cache.dir
+/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/rebuild_cache.dir

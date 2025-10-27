@@ -174,7 +174,7 @@ z3::check_result Solver::check() {
       "SMT: { \"solving_time\": " + decstr(solving_time_) + ", "
       + "\"total_time\": " + decstr(before - start_time_) + " }\n");
       
-  //LOG_DEBUG("Constraints: " + solver_.to_smt2() + "\n");
+  LOG_STAT("Constraints: " + solver_.to_smt2() + "\n");
   try {
     res = solver_.check();
   }
@@ -183,6 +183,7 @@ z3::check_result Solver::check() {
     // timeout can cause exception
     res = z3::unknown;
   }
+
   uint64_t cur = getTimeStamp();
   uint64_t elapsed = cur - before;
   solving_time_ += elapsed;

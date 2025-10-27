@@ -19,6 +19,7 @@
 
 # add nokaslr, --accel tcg,thread=single -smp 1
 # SYMCC_MEMORY_INPUT=1
+# Replace -d all with -d page 
 /workdir/run/qemu-system-x86_64 \
     --accel tcg,thread=single -smp 1 \
     -D /workdir/sysqemu_log \

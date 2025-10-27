@@ -27,10 +27,38 @@
 #include "tcg/helper-tcg.h"
 #include "../seg_helper.h"
 
+#define NOT_SYMBOLIC ((size_t)-1)
+
+extern char symbolic;
+size_t get_symbolic_index_for_vma(uint64_t vma, size_t required_size);
+
 void helper_syscall(CPUX86State *env, int next_eip_addend)
 {
     int selector;
+    if (symbolic) {
+        // This code should really, *really* be more efficient...
 
+        // env->regs[R_EDI], R_ESI, R_EDX, R_R10, R_R8, R_R9
+        size_t index_return = get_symbolic_index_for_vma(env->regs[R_EDI], 8);
+        if (index_return != NOT_SYMBOLIC) {
+            printf("DEBUG: Hey, a syscall with a marked address is being processed in symbolic mode!\nSolver variable = k!%zu\nRAX (type) = %lx\n*RDI (arg1) = %lx\nRSI (arg2) = %lx\nRDX (arg3) = %lx\nR10 (arg4) = %lx\nR8 (arg5) = %lx\nR9 (arg6) = %lx\n", index_return, env->regs[R_EAX], env->regs[R_EDI], env->regs[R_ESI], env->regs[R_EDX], env->regs[R_R10], env->regs[R_R8], env->regs[R_R9]);
+        }
+        else if ((index_return = get_symbolic_index_for_vma(env->regs[R_ESI], 8) != NOT_SYMBOLIC)) {
+            printf("DEBUG: Hey, a syscall with a marked address is being processed in symbolic mode!\nSolver variable = k!%zu\nRAX (type) = %lx\nRDI (arg1) = %lx\n*RSI (arg2) = %lx\nRDX (arg3) = %lx\nR10 (arg4) = %lx\nR8 (arg5) = %lx\nR9 (arg6) = %lx\n", index_return, env->regs[R_EAX], env->regs[R_EDI], env->regs[R_ESI], env->regs[R_EDX], env->regs[R_R10], env->regs[R_R8], env->regs[R_R9]);
+        }
+        else if ((index_return = get_symbolic_index_for_vma(env->regs[R_EDX], 8) != NOT_SYMBOLIC)) {
+            printf("DEBUG: Hey, a syscall with a marked address is being processed in symbolic mode!\nSolver variable = k!%zu\nRAX (type) = %lx\nRDI (arg1) = %lx\nRSI (arg2) = %lx\n*RDX (arg3) = %lx\nR10 (arg4) = %lx\nR8 (arg5) = %lx\nR9 (arg6) = %lx\n", index_return, env->regs[R_EAX], env->regs[R_EDI], env->regs[R_ESI], env->regs[R_EDX], env->regs[R_R10], env->regs[R_R8], env->regs[R_R9]);
+        }
+        else if ((index_return = get_symbolic_index_for_vma(env->regs[R_R10], 8) != NOT_SYMBOLIC)) {
+            printf("DEBUG: Hey, a syscall with a marked address is being processed in symbolic mode!\nSolver variable = k!%zu\nRAX (type) = %lx\nRDI (arg1) = %lx\nRSI (arg2) = %lx\nRDX (arg3) = %lx\n*R10 (arg4) = %lx\nR8 (arg5) = %lx\nR9 (arg6) = %lx\n", index_return, env->regs[R_EAX], env->regs[R_EDI], env->regs[R_ESI], env->regs[R_EDX], env->regs[R_R10], env->regs[R_R8], env->regs[R_R9]);
+        }
+        else if ((index_return = get_symbolic_index_for_vma(env->regs[R_R8], 8) != NOT_SYMBOLIC)) {
+            printf("DEBUG: Hey, a syscall with a marked address is being processed in symbolic mode!\nSolver variable = k!%zu\nRAX (type) = %lx\nRDI (arg1) = %lx\nRSI (arg2) = %lx\nRDX (arg3) = %lx\nR10 (arg4) = %lx\n*R8 (arg5) = %lx\nR9 (arg6) = %lx\n", index_return, env->regs[R_EAX], env->regs[R_EDI], env->regs[R_ESI], env->regs[R_EDX], env->regs[R_R10], env->regs[R_R8], env->regs[R_R9]);
+        }
+        else if ((index_return = get_symbolic_index_for_vma(env->regs[R_R9], 8) != NOT_SYMBOLIC)) {
+            printf("DEBUG: Hey, a syscall with a marked address is being processed in symbolic mode!\nSolver variable = k!%zu\nRAX (type) = %lx\nRDI (arg1) = %lx\nRSI (arg2) = %lx\nRDX (arg3) = %lx\nR10 (arg4) = %lx\nR8 (arg5) = %lx\n*R9 (arg6) = %lx\n", index_return, env->regs[R_EAX], env->regs[R_EDI], env->regs[R_ESI], env->regs[R_EDX], env->regs[R_R10], env->regs[R_R8], env->regs[R_R9]);
+        }
+    }
     if (!(env->efer & MSR_EFER_SCE)) {
         raise_exception_err_ra(env, EXCP06_ILLOP, 0, GETPC());
     }

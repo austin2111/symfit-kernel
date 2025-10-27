@@ -1,5 +1,7 @@
 #include "afl_trace_map.h"
 
+extern char symbolic;
+
 namespace qsym {
 
 const int kMapSize = 65536;
@@ -154,10 +156,17 @@ bool AflTraceMap::isInterestingBranch(ADDRINT pc, bool taken) {
     ret = true;
     commit();
   }
-  else
-    ret = false;
-
+  else {
+        /*
+        if (symbolic) {
+            printf("[--] switching to concrete\n");
+            symbolic = 0;
+        }
+        */
+      ret = false;
+  }
   prev_loc_ = h;
+  printf("DEBUG: Branch at 0x%lx evaluated! Interesting value is %d, taken value is %d\n", pc, ret, taken);
   return ret;
 }
 

@@ -1,0 +1,15 @@
+{
+	"syscall": 1,
+	"args": [1, "Hello, world!\n", 14],
+        "symbolic": true
+}
+{
+	"syscall": 1,
+	"args": [1, "Hats!\n", 7],
+	"symbolic": true
+}
+{
+	"syscall": 9,
+	"args": ["Hats!", 8, 51, -1, 0],
+	"symbolic": true
+}

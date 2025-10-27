@@ -1,0 +1,17 @@
+[
+  {
+    "syscall": 2,
+    "args": ["/workdir/test.txt", 0, 0],
+    "symbolic": false
+  },
+  {
+    "syscall": 0,
+    "args": ["$0", 1024, 1024],
+    "symbolic": false
+  },
+  {
+    "syscall": 1,
+    "args": [1, "$1", "$2"],
+    "symbolic": false
+  }
+]

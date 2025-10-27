@@ -38,6 +38,10 @@
 
 #define NOT_IMPLEMENTED NULL
 
+extern size_t inputOffset;
+
+void add_symbolic_range(uint64_t vma, size_t length, size_t start_sym_index); // Function declaration for the symbolic monitoring functions
+
 /* A slightly questionable macro to help with the repetitive parts of
  * implementing the symbolic handlers: assuming the existence of concrete
  * arguments "arg1" and "arg2" along with variables "arg1_expr" and "arg2_expr"
@@ -334,6 +338,8 @@ void HELPER(sym_load_checker)(CPUArchState *env,
     if (!symbolic && addr == 0x10000000) {
         printf("[--] switching to symbolic\n");
         symbolic = 1;
+        add_symbolic_range((unsigned long long) addr, 1280, inputOffset); // Mark the virtual address as symbolic too
+        inputOffset += 1280;
         void *host_addr = tlb_vaddr_to_host(env, addr, MMU_DATA_LOAD, mmu_idx);
         symcc_make_symbolic(host_addr, 1280);
         CPUState *cpu = env_cpu(env);
@@ -723,7 +729,7 @@ void HELPER(sym_collect_garbage)(void)
 
 void HELPER(sym_check_state)(void) {
     if (!_sym_interesting_block()) {
-        // printf("[--] switching to concrete\n");
+        printf("[--] switching to concrete\n");
         symbolic = 0;
     }
 }

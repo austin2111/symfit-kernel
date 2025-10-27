@@ -66,7 +66,30 @@ If the system locks up, you can stop the run by running `docker stop <container 
 
 ---
 
-## 7. Files in this Directory
+## 7. Running a JSON script using the syscall interpreter
+
+This repo includes an interpreter to dynamically run syscalls, including the option to stick them in symbolic memory for the solver to manipulate. This will automatically be compiled from
+source as the docker image is run. To run the test application from /workdir: ./claude_syscall5c <input file> <options>. Options include --cleanup to unallocate any hanging file descriptors, 
+pipes or mmaped memory regions. Additionally, --symbolic-mem <address> may be specified to instruct the interpreter on which addresses to load and dereference integer arguments from when in
+symbolic mode. Adding --file <filename> will make the interpreter open a file descriptor for use by syscalls for a specific file. Upon termination of the interpreter, the file descriptor will
+automatically be closed.
+
+A number of test scripts have been included in JSON format. printq3.json is currently the recommended demonstration script to use. $file may be used to specify the descriptor derived from
+opening a file name via the aforementioned --file argument. As well, return values are stored and can be referenced later. For example, to reference the return value from the first syscall run,
+use $0. To reference the second return value, use $1, and so on. Other than this, this general format should be observed when changing or adding syscalls to scripts:
+
+[
+  {"syscall": <syscall number>, "args": <comma separated arguments; maximum of six>, "symbolic": <true/false>}, <-- Always put a comma at the end to denote more syscalls for the system to parse
+]
+
+For example:
+
+[
+  {"syscall": 2, "args": ["/workdir/data.txt", 0], "symbolic": true},
+  {"syscall": 9, "args": [0x10000000, 1024, 3, 50, -1, 0], "symbolic": true}
+]
+
+## 8. Files in this Directory
 
 - `Dockerfile`: Docker build instructions for the required environment.
 - `launch.sh`: Script to launch the Docker container with correct mounts.

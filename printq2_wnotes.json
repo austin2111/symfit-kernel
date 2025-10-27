@@ -1,0 +1,7 @@
+[
+  {"syscall": 2, "args": ["/workdir/data.txt", 0], "symbolic": false}, # <-- specification for number of bytes per string argument goes here; martialing/unmartialing
+  {"syscall": 9, "args": [0x10000000, 1024, 3, 50, -1, 0], "symbolic": false},
+  {"syscall": 0, "args": ["$0", "$1", 1024], "symbolic": false},
+  {"syscall": 1, "args": [1, "$1", "$2"], "symbolic": false},
+  {"syscall": 3, "args": ["$0"], "symbolic": false}
+]

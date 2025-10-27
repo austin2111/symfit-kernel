@@ -5917,7 +5917,7 @@ static abi_long do_mmap(abi_ulong addr, abi_ulong len, int prot,
                                | TARGET_MAP_HUGE_1GB
     };
     int host_flags;
-
+    fprintf(stderr, "Hey, we're doing an mmap!\n");
     switch (target_flags & TARGET_MAP_TYPE) {
     case TARGET_MAP_PRIVATE:
         host_flags = MAP_PRIVATE;

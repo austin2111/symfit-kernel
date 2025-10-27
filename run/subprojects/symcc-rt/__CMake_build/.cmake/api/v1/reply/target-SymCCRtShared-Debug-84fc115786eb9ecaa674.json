@@ -1,0 +1,244 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "libsymcc-rt.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"src/backends/qsym/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 66,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 84,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 26,
+				"parent" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "SymCCRtObj::@31a85e097f9a73c0e116"
+		}
+	],
+	"id" : "SymCCRtShared::@31a85e097f9a73c0e116",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-lz3",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/usr/lib/llvm-14/lib/libLLVMSupport.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lrt",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libz.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libtinfo.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/llvm-14/lib/libLLVMDemangle.a",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "SymCCRtShared",
+	"nameOnDisk" : "libsymcc-rt.so",
+	"paths" : 
+	{
+		"build" : "src/backends/qsym",
+		"source" : "src/backends/qsym"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Object Libraries",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/expr.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/expr_builder.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/expr_cache.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/expr_evaluate.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/solver.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/dependency.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/logging.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/afl_trace_map.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/allocation.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/call_stack_manager.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/third_party/llvm/range.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/qsym/qsym/pintool/third_party/xxhash/xxhash.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/__/__/Config.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/__/__/RuntimeCommon.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/__/__/LibcWrappers.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/__/__/Shadow.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/__/__/GarbageCollection.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "/workdir/run/subprojects/symcc-rt/__CMake_build/src/backends/qsym/CMakeFiles/SymCCRtObj.dir/Runtime.cpp.o",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

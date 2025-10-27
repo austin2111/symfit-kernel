@@ -95,7 +95,7 @@ void Memory::mmap(ADDRINT start, ADDRINT end) {
   start = roundPageDown(start);
   end = roundPageDown(end);
   ADDRINT length = (end - start) + kPageSize;
-
+  syslog(LOG_INFO, "mmap used! Length %d", length);
   if (length <= 0)
     LOG_FATAL("negative length");
 

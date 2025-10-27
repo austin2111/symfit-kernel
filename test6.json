@@ -1,0 +1,7 @@
+
+[
+  {"syscall": 2, "args": ["/home/user/symfit-kernel/data.txt", 0], "symbolic": false},
+  {"syscall": 0, "args": ["$0", 1024, 1024], "symbolic": false},
+  {"syscall": 1, "args": [1, "$1", "$2"], "symbolic": false},
+  {"syscall": 3, "args": ["$0"], "symbolic": false}
+]

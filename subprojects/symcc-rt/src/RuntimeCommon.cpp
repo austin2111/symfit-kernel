@@ -28,14 +28,74 @@
 #include "RuntimeCommon.h"
 #include "Shadow.h"
 
+size_t inputOffset = 0; // track the offset across calls. This is now global.
+
 namespace {
 
 constexpr int kMaxFunctionArguments = 256;
-
 /// Global storage for function parameters and the return value.
 SymExpr g_return_value;
 std::array<SymExpr, kMaxFunctionArguments> g_function_arguments;
 // TODO make thread-local
+
+typedef struct {
+    uint64_t start_vma;
+    size_t length;
+    size_t start_sym_index;
+} SymbolicOriginRange; // No need for the 'struct' keyword when declaring variables now
+
+// These here functions are for populating the z3 solver map
+std::map<uint64_t, SymbolicOriginRange> g_symbolic_vma_map;
+
+SymbolicOriginRange* find_symbolic_region_internal(uint64_t vma, size_t required_size) {
+    if (g_symbolic_vma_map.empty()) {
+        return nullptr;
+    }
+    
+    // Find the first element whose key (start_vma) is GREATER than vma
+    auto it = g_symbolic_vma_map.upper_bound(vma);
+
+    if (it == g_symbolic_vma_map.begin()) {
+        // This can happen if vma is before the first element in the map
+        return nullptr;
+    }
+    
+    // Move back to the potential region (the last element <= vma)
+    it--; 
+
+    SymbolicOriginRange& range = it->second;
+
+    // Check if the VMA and the entire required_size range fit within the region
+    if (vma >= range.start_vma && (vma + required_size) <= (range.start_vma + range.length)) {
+        return &range;
+    }
+
+
+    return nullptr;
+}
+
+extern "C" { // Wrapper so we can call this from the C source where the actual CPU emulation happens
+
+void add_symbolic_range(uint64_t vma, size_t length, size_t start_sym_index) {
+    // Add the new region to the map
+    g_symbolic_vma_map[vma] = {vma, length, start_sym_index};
+    // Note: This relies on your engine only marking contiguous, non-overlapping regions.
+}
+
+size_t get_symbolic_index_for_vma(uint64_t vma, size_t required_size) {
+    // Optimization: check a global flag here if available
+    SymbolicOriginRange* range = find_symbolic_region_internal(vma, required_size);
+
+    if (range) {
+        // Calculate the starting symbolic index for the requested VMA
+        // Index = Region Start Index + Offset from Region Start VMA
+        size_t offset = vma - range->start_vma;
+        return range->start_sym_index + offset;
+    }
+    return ((size_t) - 1); // Invalid/not symbolic
+}
+
+}
 
 SymExpr buildMinSignedInt(uint8_t bits) {
   return _sym_build_integer((uint64_t)(1) << (bits - 1), bits);
@@ -462,11 +522,26 @@ void _sym_register_expression_region(SymExpr *start, size_t length) {
 
 void _sym_make_symbolic(const void *data, size_t byte_length,
                         size_t input_offset) {
+  size_t start_index = input_offset;
   ReadWriteShadow shadow(data, byte_length);
   const uint8_t *data_bytes = reinterpret_cast<const uint8_t *>(data);
   std::generate(shadow.begin(), shadow.end(), [&, i = 0]() mutable {
     return _sym_get_input_byte(input_offset++, data_bytes[i++]);
   });
+
+    add_symbolic_range(
+            reinterpret_cast<uint64_t>(data), 
+            byte_length, 
+            start_index
+    );
+    printf("DEBUG: Symbolic region created:\n");
+    printf("       Address Range: 0x%lx - 0x%lx\n", 
+           (unsigned long)data, 
+           (unsigned long)data + byte_length - 1); // Start to End
+    printf("       Length: %zu bytes\n", byte_length);
+    printf("       Mapped to Z3 Indices: k!%zu through k!%zu\n", 
+           input_offset - byte_length, 
+           input_offset - 1);
 }
 
 void symcc_make_symbolic(const void *start, size_t byte_length) {
@@ -474,7 +549,6 @@ void symcc_make_symbolic(const void *start, size_t byte_length) {
     throw std::runtime_error{"Calls to symcc_make_symbolic aren't allowed when "
                              "SYMCC_MEMORY_INPUT isn't set"};
 
-  static size_t inputOffset = 0; // track the offset across calls
   _sym_make_symbolic(start, byte_length, inputOffset);
   inputOffset += byte_length;
 }

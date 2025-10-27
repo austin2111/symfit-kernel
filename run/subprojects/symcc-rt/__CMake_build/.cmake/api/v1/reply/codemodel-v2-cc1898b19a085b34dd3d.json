@@ -1,0 +1,121 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "src/backends/qsym",
+					"jsonFile" : "directory-src.backends.qsym-Debug-c76bedb74e89f99f5ab1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src/backends/qsym",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "SymCCRuntime",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "SymCCRtObj::@31a85e097f9a73c0e116",
+					"jsonFile" : "target-SymCCRtObj-Debug-b186562c3dfb39389e11.json",
+					"name" : "SymCCRtObj",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SymCCRtShared::@31a85e097f9a73c0e116",
+					"jsonFile" : "target-SymCCRtShared-Debug-84fc115786eb9ecaa674.json",
+					"name" : "SymCCRtShared",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "SymCCRtStatic::@31a85e097f9a73c0e116",
+					"jsonFile" : "target-SymCCRtStatic-Debug-aa06941802054cc291f9.json",
+					"name" : "SymCCRtStatic",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "acc_gen::@31a85e097f9a73c0e116",
+					"jsonFile" : "target-acc_gen-Debug-fb43ebb96338c67885a8.json",
+					"name" : "acc_gen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "intrinsics_gen::@31a85e097f9a73c0e116",
+					"jsonFile" : "target-intrinsics_gen-Debug-2fc11853ad8fbba7f0ce.json",
+					"name" : "intrinsics_gen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "omp_gen::@31a85e097f9a73c0e116",
+					"jsonFile" : "target-omp_gen-Debug-b779dedb2248eb846d7a.json",
+					"name" : "omp_gen",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/workdir/run/subprojects/symcc-rt/__CMake_build",
+		"source" : "/workdir/subprojects/symcc-rt"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

@@ -1,0 +1,19 @@
+[options]
+audio_drv_list = 
+sdl = disabled
+gtk = disabled
+vte = disabled
+opengl = disabled
+virglrenderer = disabled
+debug_tcg = true
+debug_graph_lock = true
+debug_mutex = true
+optimization = 0
+werror = false
+kvm = disabled
+docs = disabled
+plugins = true
+
+[properties]
+native_file = ['/workdir/run/config-meson.cross']
+

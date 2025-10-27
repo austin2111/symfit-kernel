@@ -16,8 +16,9 @@ docker run --rm -ti --ulimit core=0 \
 	    /bin/bash -lc "\
 	    set -eux; \
 	    mkdir -p /tmp/output; \
-	    apt-get install -y nano xxd; \
-	    gcc ./kernel_syscall_test.c -o kernel_syscall_test; \
+	    apt-get install -y nano xxd libjsmn-dev; \
+	    gcc ./kernel_syscall_test.c -DPTR_AS_STRING -o kernel_syscall_test; \
+            gcc ./claude_syscall4.c -o claude_syscall; \
 	    exec bash"
 #  -v /data/zhenxiao/aixcc/testvirtme/challenge-001-exemplar-source:/challenge-001-exemplar-source \
 

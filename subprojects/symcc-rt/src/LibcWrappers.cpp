@@ -107,7 +107,8 @@ void *SYM(malloc)(size_t size) {
   auto *result = malloc(size);
 
   tryAlternative(size, _sym_get_parameter_expression(0), SYM(malloc));
-
+  write(2, "malloc wrapper hit\n", 19);
+  //fprintf(stderr, "DEBUG: malloc invoked!\n");
   _sym_set_return_expression(nullptr);
   return result;
 }

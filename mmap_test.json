@@ -1,0 +1,10 @@
+{
+        "syscall": 9,
+        "args": [268439552, 8, 3, 50, -1, 0],
+        "symbolic": true
+}
+{
+	"syscall": 0,
+	"args": [$file, 268439552, 8],
+	"symbolic": true
+}

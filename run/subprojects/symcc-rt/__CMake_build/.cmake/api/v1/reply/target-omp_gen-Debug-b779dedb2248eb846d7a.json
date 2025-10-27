@@ -1,0 +1,55 @@
+{
+	"backtrace" : 4,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"_add_custom_target",
+			"add_custom_target",
+			"find_package"
+		],
+		"files" : 
+		[
+			"/root/.local/lib/python3.10/site-packages/mesonbuild/cmake/data/preload.cmake",
+			"/usr/lib/llvm-14/cmake/LLVMConfig.cmake",
+			"src/backends/qsym/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 24,
+				"parent" : 0
+			},
+			{
+				"file" : 1,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 334,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 39,
+				"parent" : 3
+			}
+		]
+	},
+	"id" : "omp_gen::@31a85e097f9a73c0e116",
+	"name" : "omp_gen",
+	"paths" : 
+	{
+		"build" : "src/backends/qsym",
+		"source" : "src/backends/qsym"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}
